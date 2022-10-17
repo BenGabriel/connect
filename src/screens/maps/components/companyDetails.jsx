@@ -5,6 +5,7 @@ import { colors } from "../../../utils/colors";
 import { appStyle } from "../../../utils/appStyle";
 import CompanyDescription from "./companyDescription";
 import Services from "./services";
+import { Ionicons } from "@expo/vector-icons";
 import {
   Directions,
   FlingGestureHandler,
@@ -23,7 +24,7 @@ import { heightRes, widthRes } from "../../../utils/responsiveness";
 import { useNavigation } from "@react-navigation/native";
 
 const height = Dimensions.get("window").height;
-const CompanyDetails = ({ setDisplayMenu }) => {
+const CompanyDetails = ({ setDisplayMenu, displayMenu }) => {
   const navigation = useNavigation();
   const services = [...Array(3)];
   const scrollRef = useRef();
@@ -78,12 +79,33 @@ const CompanyDetails = ({ setDisplayMenu }) => {
               showsVerticalScrollIndicator={false}
             >
               <CompanyDescription />
-              <View
-                style={{
-                  marginVertical: heightRes(2),
-                  marginLeft: heightRes(1)
-                }}
-              >
+              <View style={styles.section}>
+                <Text value="About Us" bold color={colors.white} size={2.3} />
+                <Text
+                  value="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus faucibus laoreet leo. Viverra cursus in aliquam scelerisque sodales ... more"
+                  color={colors.textColor}
+                />
+              </View>
+              <View style={styles.section}>
+                <Text
+                  value="Vehicle Brands"
+                  bold
+                  color={colors.white}
+                  size={2.3}
+                />
+                <View style={appStyle.flexRowCenter}>
+                  {services.map((t) => (
+                    <View style={styles.vehicleContainer}>
+                      <Text
+                        value="Toyota"
+                        color={colors.textColor}
+                        size={1.4}
+                      />
+                    </View>
+                  ))}
+                </View>
+              </View>
+              <View style={styles.section}>
                 <Text
                   value="Our services"
                   bold
@@ -94,31 +116,34 @@ const CompanyDetails = ({ setDisplayMenu }) => {
                   <Services key={t} />
                 ))}
               </View>
-              <View
-                style={{
-                  marginVertical: heightRes(2),
-                  marginLeft: heightRes(1)
-                }}
-              >
+              <View style={styles.section}>
                 <Text value="Mechanics" bold color={colors.white} size={2.3} />
                 {services.map((t) => (
                   <Mechanics key={t} />
                 ))}
               </View>
-              <View style={appStyle.flexRowSpaceCenter}>
-                <Button
-                  value="Order Service"
-                  textColor={colors.appBlack}
-                  color={colors.yellow}
-                  style={styles.button}
-                  onPress={orderFunction}
-                />
-                <Button
-                  value="Message"
-                  style={styles.button}
-                  onPress={navigateToChat}
-                />
-              </View>
+              {!displayMenu && (
+                <View
+                  style={[
+                    appStyle.flexRowSpaceCenter,
+                    { marginBottom: heightRes(2) }
+                  ]}
+                >
+                  <Button
+                    value="Order Service"
+                    textColor={colors.appBlack}
+                    color={colors.yellow}
+                    style={styles.button}
+                    onPress={orderFunction}
+                  />
+                  <Button
+                    value="Message"
+                    style={styles.button}
+                    onPress={navigateToChat}
+                    color="#585CBD"
+                  />
+                </View>
+              )}
             </ScrollView>
           </Animated.View>
         </FlingGestureHandler>
@@ -146,6 +171,20 @@ const styles = StyleSheet.create({
     backgroundColor: colors.appBlack,
     alignSelf: "center",
     marginVertical: heightRes(2)
+  },
+  section: {
+    marginVertical: heightRes(2),
+    marginLeft: heightRes(1)
+  },
+  vehicleContainer: {
+    borderWidth: 1,
+    borderRadius: 100,
+    padding: heightRes(0.5),
+    paddingHorizontal: heightRes(3),
+    borderColor: colors.textColor,
+    margin: heightRes(1),
+    alignItems: "center",
+    justifyContent: "center"
   },
   button: {
     width: "45%",

@@ -9,6 +9,7 @@ import Profile from "../screens/profile/profile";
 import ChatScreen from "../screens/chat/chatScreen";
 import OrderScreen from "../screens/maps/orderScreen";
 import OrderHistory from "../screens/profile/orderHistory";
+import EditProfile from "../screens/profile/editProfile";
 
 const DrawerStack = () => {
   const Drawer = createDrawerNavigator();
@@ -26,6 +27,7 @@ const DrawerStack = () => {
       <Drawer.Screen name="AutoShopList" component={AutoShopList} />
       <Drawer.Screen name="AutoMap" component={AutoMap} />
       <Drawer.Screen name="Profile" component={Profile} />
+      <Drawer.Screen name="EditProfile" component={EditProfile} />
       <Drawer.Screen name="ChatScreen" component={ChatScreen} />
       <Drawer.Screen name="OrderScreen" component={OrderScreen} />
       <Drawer.Screen name="OrderHistory" component={OrderHistory} />

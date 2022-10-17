@@ -5,6 +5,7 @@ import { heightRes, widthRes } from "../../utils/responsiveness";
 import { colors } from "../../utils/colors";
 import AuthContainer from "../../components/authContainer";
 import Button from "../../components/button";
+import { appStyle } from "../../utils/appStyle";
 
 const Welcome = () => {
   const navigation = useNavigation();
@@ -15,36 +16,34 @@ const Welcome = () => {
         style={{
           position: "absolute",
           bottom: heightRes(10),
-          alignSelf: "center"
+          alignSelf: "center",
+          paddingHorizontal: heightRes(3)
         }}
       >
-        <View style={styles.ImageContainer}>
-          <Image
-            source={require("../../../assets/welcome.png")}
-            style={{ width: "100%", height: "100%", resizeMode: "contain" }}
-          />
-        </View>
         <View>
-          <Text value="Welcome to" size={4.5} bold color={colors.variant2} />
+          <View style={appStyle.flexRowCenter}>
+            <Text value="Locate " size={4.3} bold color={colors.variant2} />
+            <Text value="and" size={4.3} color={colors.variant2} />
+          </View>
           <Text
-            value="Meconnect"
-            size={7}
-            bolder
+            value="communicate "
+            size={4.3}
+            bold
             color={colors.variant2}
-            style={{ marginTop: heightRes(-1.3) }}
+            style={{ marginTop: heightRes(-1.5) }}
           />
           <Text
-            value="We make it easier for you to locate and communicate with autoshops near you"
-            size={3}
+            value="with autoshops near you"
+            size={4.3}
             color={colors.variant2}
+            style={{ marginTop: heightRes(-1.5) }}
           />
         </View>
         <Button
           value="I'm new here"
           onPress={() => navigation.navigate("SignUp")}
           style={{ marginTop: heightRes(5) }}
-          border
-          textColor={colors.primary}
+          textColor={colors.white}
         />
         <Text
           value="Sign in"

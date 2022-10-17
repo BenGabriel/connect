@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import React, { useState } from "react";
 import AuthContainer from "../../components/authContainer";
 import { heightRes } from "../../utils/responsiveness";
@@ -17,7 +17,7 @@ const SignIn = () => {
   const [secure, setSecure] = useState(true);
   return (
     <AuthContainer>
-      <View style={styles.container}>
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <Header
           title="Sign In"
           subtitle="I'm new here. "
@@ -55,11 +55,10 @@ const SignIn = () => {
           style={{
             marginTop: heightRes(10)
           }}
-          border
           onPress={() => navigation.navigate("App")}
-          textColor={colors.primary}
+          textColor={colors.white}
         />
-      </View>
+      </ScrollView>
     </AuthContainer>
   );
 };
@@ -68,9 +67,9 @@ export default SignIn;
 
 const styles = StyleSheet.create({
   container: {
-    position: "absolute",
-    top: heightRes(10),
+    paddingVertical: heightRes(10),
     alignSelf: "center",
-    width: "100%"
+    width: "100%",
+    flex: 1
   }
 });

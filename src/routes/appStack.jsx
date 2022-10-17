@@ -4,6 +4,7 @@ import Text from "../components/Text";
 import { colors } from "../utils/colors";
 import { heightRes, widthRes } from "../utils/responsiveness";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
+import { appStyle } from "../utils/appStyle";
 
 const AppStack = ({ navigation }) => {
   const data = [
@@ -25,7 +26,7 @@ const AppStack = ({ navigation }) => {
         <View style={styles.image}>
           <Image
             source={require("../../assets/userimg.png")}
-            style={{ width: "100%", height: "100%", resizeMode: "contain" }}
+            style={appStyle.image}
           />
         </View>
         <Text

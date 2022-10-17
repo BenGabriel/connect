@@ -5,42 +5,51 @@ import { colors } from "../utils/colors";
 import { heightRes, widthRes } from "../utils/responsiveness";
 import Text from "./Text";
 
-const Button = (props) => {
+const Button = ({
+  border,
+  color,
+  disabled,
+  load,
+  value,
+  textColor,
+  style,
+  ...props
+}) => {
   const buttonStyle = () => {
-    if (props.border) {
+    if (border) {
       return {
         ...styles.button,
         borderWidth: 2,
-        borderColor: props.color,
+        borderColor: color,
         backgroundColor: "transparent"
       };
     } else {
       return {
         ...styles.button,
-        backgroundColor: props.color ? props.color : colors.primary
+        backgroundColor: color ? color : colors.primary
       };
     }
   };
-  
+
   return (
     <TouchableOpacity
       {...props}
       style={{
         ...buttonStyle(),
-        opacity: props.disabled ? 0.7 : 1,
-        ...props.style
+        opacity: disabled ? 0.7 : 1,
+        ...style
       }}
-      disabled={props.disabled}
+      disabled={disabled}
     >
-      {props.load ? (
+      {load ? (
         <BarIndicator color="white" size={heightRes(2.5)} count={6} />
       ) : (
         <Text
           style={styles.text}
           size={1.8}
           bolder
-          color={props.textColor ? props.textColor : colors.white}
-          value={props.value}
+          color={textColor ? textColor : colors.white}
+          value={value}
         />
       )}
     </TouchableOpacity>
@@ -53,7 +62,7 @@ const styles = StyleSheet.create({
   button: {
     width: widthRes(80),
     height: 50,
-    borderRadius: 100,
+    borderRadius: 10,
     marginTop: 10,
     justifyContent: "center",
     alignSelf: "center"

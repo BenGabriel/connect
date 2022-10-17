@@ -14,6 +14,7 @@ const VehicleDetails = () => {
   const navigation = useNavigation()
   const [vehicleName, setVehicleName] = useState("");
   const [plateNum, setPlateNum] = useState("");
+  const [chasis, setChasis] = useState("")
   const [vehicleColor, setVehicleColor] = useState("");
   const [open, setOpen] = useState(false);
   const items = [
@@ -69,8 +70,14 @@ const VehicleDetails = () => {
           <Input
             value={plateNum}
             setValue={setPlateNum}
-            label="PLATE NUMBER"
-            placeholder="Enter your plate number"
+            label="VEHICLE REG. NO"
+            placeholder="e.g  ABC123XY"
+          />
+          <Input
+            value={chasis}
+            setValue={setPlateNum}
+            label="VEHICLE CHASIS NUMBER"
+            placeholder="e.g  FJK2MCL4024FE"
           />
         </View>
         <Button
@@ -81,8 +88,7 @@ const VehicleDetails = () => {
             alignSelf: "center"
           }}
           onPress={() => navigation.navigate("App")}
-          border
-          textColor={colors.primary}
+          textColor={colors.white}
         />
       </View>
     </AuthContainer>

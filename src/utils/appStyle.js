@@ -25,5 +25,10 @@ export const appStyle = StyleSheet.create({
   flexAllCenter: {
     alignItems: "center",
     justifyContent: "center"
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "contain"
   }
 });

@@ -6,12 +6,12 @@ const AuthContainer = (props) => {
   if (props.welcome) {
     return (
       <ImageBackground
-        style={styles.container}
-        source={require("../../assets/appback.png")}
+        style={[styles.container, { padding: 0 }]}
+        source={require("../../assets/background.png")}
         imageStyle={{
-          position: "absolute",
-          top: heightRes(-20),
-          left: widthRes(0)
+          alignSelf: "center",
+          width: "100%",
+          height: "75%"
         }}
       >
         {props.children}

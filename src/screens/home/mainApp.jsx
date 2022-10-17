@@ -15,10 +15,20 @@ import { appStyle } from "../../utils/appStyle";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import Search from "./search";
+import DropDownPicker from "react-native-dropdown-picker";
 
 const MainApp = () => {
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
+  const [vehicle, setVehicle] = useState("");
+  const [open, setOpen] = useState(false);
+  const items = [
+    {
+      label: "TOYOTA",
+      value: "TOYOTA"
+    },
+    { label: "MERCEDES BENZ", value: "MERCEDES BENZ" }
+  ];
 
   const handleSearch = () => {
     setVisible(true);
@@ -43,6 +53,7 @@ const MainApp = () => {
           <Text value="Map" color={colors.textColor} />
         </TouchableOpacity>
       </View>
+      {/* location */}
       <View style={styles.locationContainer}>
         <Text
           value="To get your location click map"
@@ -58,6 +69,44 @@ const MainApp = () => {
           />
         </View>
       </View>
+
+      {/* vehicle brand */}
+      <View style={styles.vehicleBrandContainer}>
+        <Text value="Vehicle Brand" color={colors.textColor} light />
+        <DropDownPicker
+          placeholder={`${items[0].label}`}
+          textStyle={styles.textStyle}
+          value={vehicle}
+          open={open}
+          setOpen={setOpen}
+          items={items}
+          setValue={setVehicle}
+          onSelectItem={(item) => {
+            setVehicle(item.value);
+          }}
+          style={styles.dropdown}
+          flatListProps={{
+            nestedScrollEnabled: true
+          }}
+          placeholderStyle={{
+            color: colors.textColor
+          }}
+          ArrowDownIconComponent={() => (
+            <Ionicons
+              name="chevron-down"
+              color={colors.textColor}
+              size={widthRes(4)}
+            />
+          )}
+          ArrowUpIconComponent={() => (
+            <Ionicons
+              name="chevron-up"
+              color={colors.textColor}
+              size={widthRes(4)}
+            />
+          )}
+        />
+      </View>
       <View style={{ alignItems: "center" }}>
         <Text
           value="Tap to find autoshop nearby"
@@ -68,10 +117,7 @@ const MainApp = () => {
           source={require("../../../assets/circle.png")}
           style={styles.buttonContainer}
         >
-          <TouchableOpacity
-            style={styles.button}
-            onPress={handleSearch}
-          />
+          <TouchableOpacity style={styles.button} onPress={handleSearch} />
         </ImageBackground>
       </View>
       <Modal visible={visible} animationType="slide" style={{ flex: 1 }}>
@@ -92,7 +138,7 @@ const styles = StyleSheet.create({
   },
   locationContainer: {
     alignItems: "center",
-    marginVertical: heightRes(8)
+    marginTop: heightRes(8)
   },
   location: {
     backgroundColor: colors.variant,
@@ -100,7 +146,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: heightRes(1),
     marginVertical: heightRes(1.5),
-    borderRadius: 100
+    borderRadius: 10
+  },
+  vehicleBrandContainer: {
+    marginVertical: heightRes(2),
+    width: "90%",
+    alignSelf: "center",
+    marginBottom: heightRes(6)
+  },
+  dropdown: {
+    backgroundColor: colors.primary,
+    borderWidth: 1.5,
+    borderColor: colors.textColor,
+    marginTop: 5
   },
   buttonContainer: {
     width: widthRes(70),

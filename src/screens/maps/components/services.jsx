@@ -7,11 +7,10 @@ import Text from "../../../components/Text";
 
 const Services = () => {
   return (
-    <View style={{...appStyle.flexRowCenter, marginVertical: heightRes(1)}}>
+    <View style={{ ...appStyle.flexRowCenter, marginVertical: heightRes(0.5) }}>
       <View style={styles.imageContainer} />
       <View style={{ flex: 1, marginLeft: heightRes(1.8) }}>
-        <Text value="service rendered" color={colors.white} bold />
-        <Text value="price" color={colors.white} size={1.4} />
+        <Text value="Service rendered" color={colors.textColor} />
       </View>
     </View>
   );
@@ -21,9 +20,9 @@ export default Services;
 
 const styles = StyleSheet.create({
   imageContainer: {
-    width: widthRes(12),
-    height: widthRes(12),
-    backgroundColor: colors.appBlack,
+    width: widthRes(1.2),
+    height: widthRes(1.2),
+    backgroundColor: colors.textColor,
     borderRadius: 100
   }
 });

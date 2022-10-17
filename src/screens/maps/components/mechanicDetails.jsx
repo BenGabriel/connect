@@ -59,7 +59,6 @@ const MechanicDetails = () => {
     navigation.goBack();
   };
 
-
   return (
     <Animated.View style={[styles.bottomContainer, tranformHeight]}>
       <ScrollView style={{ flex: 1 }}>
@@ -181,20 +180,28 @@ const MechanicDetails = () => {
           </View>
         </View>
         <View style={styles.bottom}>
-          <Button
-            value="Cancel order"
-            color={colors.white}
-            textColor={colors.appBlack}
-            onPress={cancelOrder}
-            style={styles.button}
-          />
-          <Button
-            value="Message"
-            color={colors.yellow}
-            textColor={colors.appBlack}
-            onPress={() => navigation.navigate("ChatScreen")}
-            style={styles.button}
-          />
+          <View>
+            <TouchableOpacity
+              onPress={cancelOrder}
+              style={[styles.bottomIcon, { backgroundColor: "#d9d9d9" }]}
+            >
+              <Ionicons name="close-sharp" size={widthRes(6)} />
+            </TouchableOpacity>
+            <Text value="Cancel order" bold color={colors.white} />
+          </View>
+          <View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("ChatScreen")}
+              style={[styles.bottomIcon, { backgroundColor: "#585CBD" }]}
+            >
+              <Ionicons
+                name="ios-chatbubble-outline"
+                size={widthRes(6)}
+                color={colors.white}
+              />
+            </TouchableOpacity>
+            <Text value="Message" bold color={colors.white} />
+          </View>
         </View>
       </ScrollView>
     </Animated.View>
@@ -245,7 +252,7 @@ const styles = StyleSheet.create({
     marginHorizontal: heightRes(2),
     padding: heightRes(1),
     borderBottomWidth: 1,
-    borderBottomColor: colors.white,
+    borderBottomColor: colors.textColor,
     paddingBottom: heightRes(1)
   },
   middle: {
@@ -255,15 +262,24 @@ const styles = StyleSheet.create({
     marginVertical: heightRes(3)
   },
   bottom: {
-    ...appStyle.flexRowSpaceCenter,
+    ...appStyle.flexRowCenter,
     backgroundColor: colors.variant,
     borderRadius: 20,
     padding: heightRes(2),
-    justifyContent: "center"
+    justifyContent: "space-around"
   },
   button: {
     borderRadius: 10,
     width: "40%",
     marginHorizontal: heightRes(1)
+  },
+  bottomIcon: {
+    borderRadius: 100,
+    width: widthRes(12),
+    height: widthRes(12),
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: heightRes(1),
+    alignSelf: "center"
   }
 });

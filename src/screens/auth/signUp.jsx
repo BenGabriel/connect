@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import React, { useState } from "react";
 import AuthContainer from "../../components/authContainer";
 import Header from "./components/header";
@@ -9,16 +9,17 @@ import Button from "../../components/button";
 import { colors } from "../../utils/colors";
 
 const SignUp = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [secure, setSecure] = useState(true);
-  
+  const [emergencyContact, setEmergencyContact] = useState("");
+
   return (
     <AuthContainer>
-      <View style={styles.container}>
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <Header
           title="Sign Up"
           subtitle="Already have an account ?"
@@ -48,6 +49,13 @@ const SignUp = () => {
             placeholder="+234 ----------"
           />
           <Input
+            value={emergencyContact}
+            setValue={setEmergencyContact}
+            label="EMERGENCY CONTACT"
+            icon="warning-outline"
+            placeholder="+234 ----------"
+          />
+          <Input
             value={password}
             setValue={setPassword}
             label="PASSWORD"
@@ -61,13 +69,12 @@ const SignUp = () => {
         <Button
           value="Next"
           style={{
-            marginTop: heightRes(10),
+            marginTop: heightRes(10)
           }}
           onPress={() => navigation.navigate("VehicleDetails")}
-          border
-          textColor={colors.primary}
+          textColor={colors.white}
         />
-      </View>
+      </ScrollView>
     </AuthContainer>
   );
 };
@@ -76,9 +83,9 @@ export default SignUp;
 
 const styles = StyleSheet.create({
   container: {
-    position: "absolute",
-    top: heightRes(10),
+    paddingVertical: heightRes(10),
     alignSelf: "center",
-    width: "100%"
+    width: "100%",
+    flex: 1
   }
 });
