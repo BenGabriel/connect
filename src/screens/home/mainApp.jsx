@@ -3,7 +3,6 @@ import {
   Modal,
   ScrollView,
   StyleSheet,
-  TextInput,
   TouchableOpacity,
   View
 } from "react-native";
@@ -22,6 +21,9 @@ const MainApp = () => {
   const [visible, setVisible] = useState(false);
   const [vehicle, setVehicle] = useState("");
   const [open, setOpen] = useState(false);
+  const [openVehicle, setOpenVehicle] = useState(false);
+  const [vehicleType, setVehicleType] = useState("");
+
   const items = [
     {
       label: "TOYOTA",
@@ -35,23 +37,36 @@ const MainApp = () => {
     setTimeout(() => {
       navigation.navigate("AutoShopList");
       setVisible(false);
-    }, 4000);
+    }, 10000);
   };
   return (
     <ScrollView style={appStyle.container} showsVerticalScrollIndicator={false}>
-      <View style={appStyle.flexRowSpaceCenter}>
+      <View style={[appStyle.flexRowSpaceCenter, { marginTop: heightRes(2) }]}>
         <Ionicons
           name="menu"
           color={colors.textColor}
           size={widthRes(7)}
           onPress={() => navigation.toggleDrawer()}
         />
-        <TouchableOpacity
-          style={styles.mapText}
-          onPress={() => navigation.navigate("Map")}
-        >
-          <Text value="Map" color={colors.textColor} />
-        </TouchableOpacity>
+        <View style={appStyle.flexRowCenter}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Map")}
+            style={{ marginRight: heightRes(4) }}
+          >
+            <Ionicons
+              name="map-outline"
+              size={widthRes(5)}
+              color={colors.textColor}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("Map")}>
+            <Ionicons
+              name="chatbox-outline"
+              size={widthRes(5)}
+              color={colors.textColor}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
       {/* location */}
       <View style={styles.locationContainer}>
@@ -70,12 +85,51 @@ const MainApp = () => {
         </View>
       </View>
 
+      {/* type of vehicle */}
+
+      <View style={styles.vehicleBrandContainer}>
+        <Text value="Type of vehicle" color={colors.textColor} light />
+        <DropDownPicker
+          placeholder={`${items[0].label}`}
+          textStyle={{ color: colors.textColor }}
+          value={vehicleType}
+          open={openVehicle}
+          setOpen={setOpenVehicle}
+          items={items}
+          setValue={setVehicleType}
+          onSelectItem={(item) => {
+            setVehicleType(item.value);
+          }}
+          style={styles.dropdown}
+          flatListProps={{
+            nestedScrollEnabled: true
+          }}
+          placeholderStyle={{
+            color: colors.textColor
+          }}
+          ArrowDownIconComponent={() => (
+            <Ionicons
+              name="chevron-down"
+              color={colors.textColor}
+              size={widthRes(4)}
+            />
+          )}
+          ArrowUpIconComponent={() => (
+            <Ionicons
+              name="chevron-up"
+              color={colors.textColor}
+              size={widthRes(4)}
+            />
+          )}
+          dropDownDirection="TOP"
+        />
+      </View>
       {/* vehicle brand */}
       <View style={styles.vehicleBrandContainer}>
         <Text value="Vehicle Brand" color={colors.textColor} light />
         <DropDownPicker
           placeholder={`${items[0].label}`}
-          textStyle={styles.textStyle}
+          textStyle={{ color: colors.textColor }}
           value={vehicle}
           open={open}
           setOpen={setOpen}
@@ -107,7 +161,8 @@ const MainApp = () => {
           )}
         />
       </View>
-      <View style={{ alignItems: "center" }}>
+
+      <View style={{ alignItems: "center", marginTop: heightRes(6) }}>
         <Text
           value="Tap to find autoshop nearby"
           color={colors.textColor}
@@ -130,12 +185,6 @@ const MainApp = () => {
 export default MainApp;
 
 const styles = StyleSheet.create({
-  mapText: {
-    backgroundColor: colors.variant,
-    padding: heightRes(0.7),
-    borderRadius: 5,
-    paddingHorizontal: heightRes(1.5)
-  },
   locationContainer: {
     alignItems: "center",
     marginTop: heightRes(8)
@@ -144,7 +193,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.variant,
     width: "90%",
     alignItems: "center",
-    padding: heightRes(1),
+    padding: heightRes(1.6),
     marginVertical: heightRes(1.5),
     borderRadius: 10
   },
@@ -152,21 +201,21 @@ const styles = StyleSheet.create({
     marginVertical: heightRes(2),
     width: "90%",
     alignSelf: "center",
-    marginBottom: heightRes(6)
+    marginBottom: heightRes(1)
   },
   dropdown: {
     backgroundColor: colors.primary,
     borderWidth: 1.5,
     borderColor: colors.textColor,
-    marginTop: 5
+    marginTop: 5,
   },
   buttonContainer: {
-    width: widthRes(70),
-    height: widthRes(70),
+    width: widthRes(55),
+    height: widthRes(55),
     marginVertical: heightRes(2),
     borderRadius: 1000,
     backgroundColor: "rgba(47, 49, 73, 0.5)",
-    padding: heightRes(3)
+    padding: heightRes(2)
   },
   button: {
     width: "100%",

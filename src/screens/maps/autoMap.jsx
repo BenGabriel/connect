@@ -1,59 +1,129 @@
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View
+} from "react-native";
 import React, { useState } from "react";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { heightRes, widthRes } from "../../utils/responsiveness";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import CompanyDetails from "./components/companyDetails";
 import { colors } from "../../utils/colors";
+import Text from "../../components/Text";
+import Button from "../../components/button";
+import { appStyle } from "../../utils/appStyle";
+import Mechanics from "./components/mechanics";
+import Services from "./components/services";
+import Reviews from "../../components/reviews";
 
 const AutoMap = () => {
   const navigation = useNavigation();
-  const [displayMenu, setDisplayMenu] = useState(true);
 
   const navigateToChat = () => {
     navigation.navigate("ChatScreen");
   };
+
+  const services = [...Array(3)];
   return (
     <View style={{ flex: 1 }}>
-      <MapView
-        provider={PROVIDER_GOOGLE}
-        initialRegion={{
-          latitude: 6.3935288,
-          longitude: 7.5029666,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421
-        }}
-        style={styles.map}
-        showsUserLocation={true}
-      >
-        <Marker
-          coordinate={{
-            latitude: 6.3935288,
-            longitude: 7.5029666
-          }}
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+        <View style={{ width: "100%", height: heightRes(13) }}>
+          <Image
+            source={require("../../../assets/autoImage.png")}
+            style={{ width: "100%", height: "100%" }}
+          />
+        </View>
+        <View style={{ flex: 1, padding: heightRes(2) }}>
+          <View style={styles.profileImage}>
+            <Image
+              source={require("../../../assets/autoImage.png")}
+              style={{ width: "100%", height: "100%", borderRadius: 100 }}
+            />
+          </View>
+          {/* about */}
+          <View style={styles.section}>
+            <Text value="About Us" bold color={colors.white} size={2.3} />
+            <Text
+              value="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus faucibus laoreet leo. Viverra cursus in aliquam scelerisque sodales ... more"
+              color={colors.textColor}
+            />
+          </View>
+          {/* brands */}
+          <View style={styles.section}>
+            <Text value="Vehicle Brands" bold color={colors.white} size={2.3} />
+            <View>
+              <Text
+                value="Car:"
+                color={colors.textColor}
+                size={1.8}
+                style={styles.brandText}
+              />
+              <Text
+                value="Truck:"
+                color={colors.textColor}
+                size={1.8}
+                style={styles.brandText}
+              />
+              <Text
+                value="Motorcycle:"
+                color={colors.textColor}
+                size={1.8}
+                style={styles.brandText}
+              />
+            </View>
+          </View>
+          {/* services */}
+          <View style={styles.section}>
+            <Text value="Our services" bold color={colors.white} size={2.3} />
+            {services.map((t) => (
+              <Services key={t} />
+            ))}
+          </View>
+          {/* mechanics */}
+          <View style={styles.section}>
+            <Text value="Mechanics" bold color={colors.white} size={2.3} />
+            {services.map((t) => (
+              <Mechanics key={t} />
+            ))}
+          </View>
+          {/* reviews */}
+          <View style={styles.section}>
+            <View
+              style={[
+                appStyle.flexRowSpaceCenter,
+                { marginBottom: heightRes(1) }
+              ]}
+            >
+              <Text value="Reviews" bold color={colors.white} size={2.3} />
+              <TouchableOpacity
+                style={styles.vehicleContainer}
+                onPress={() => navigation.navigate("MechanicsReviews")}
+              >
+                <Text value="View all" color={colors.textColor} size={1.4} />
+              </TouchableOpacity>
+            </View>
+            {services.map((t, i) => (
+              <Reviews key={t} item={i} length={services.length} />
+            ))}
+          </View>
+        </View>
+      </ScrollView>
+      <View style={styles.bottomContainer}>
+        <Button
+          value="Order Service"
+          textColor={colors.appBlack}
+          color={colors.yellow}
+          style={styles.button}
+          // onPress={orderFunction}
         />
-      </MapView>
-      <View style={styles.icon}>
-        <Ionicons
-          name="menu"
-          size={widthRes(7)}
-          onPress={() => navigation.toggleDrawer()}
-          style={{
-            display: displayMenu ? "flex" : "none"
-          }}
+        <Button
+          value="Message"
+          style={styles.button}
+          onPress={navigateToChat}
+          color="#585CBD"
         />
       </View>
-      <CompanyDetails setDisplayMenu={setDisplayMenu} displayMenu={displayMenu}/>
-      {displayMenu && (
-        <TouchableOpacity style={styles.chat} onPress={navigateToChat}>
-          <Ionicons
-            name="ios-chatbubbles-outline"
-            color={colors.white}
-            size={widthRes(6)}
-          />
-        </TouchableOpacity>
-      )}
     </View>
   );
 };
@@ -61,22 +131,43 @@ const AutoMap = () => {
 export default AutoMap;
 
 const styles = StyleSheet.create({
-  map: { flex: 1, zIndex: 0 },
-  icon: {
-    position: "absolute",
-    elevation: 10,
-    padding: heightRes(2),
-    width: "100%"
+  container: {
+    backgroundColor: colors.variant,
+    flex: 1, marginBottom: heightRes(12)
   },
-  chat: {
-    borderRadius: 100,
-    backgroundColor: "#585CBD",
-    width: widthRes(15),
-    height: widthRes(15),
-    alignItems: "center",
-    justifyContent: "center",
-    position: "absolute",
-    right: widthRes(3),
-    bottom: heightRes(4)
-  }
+  profileImage: {
+    width: widthRes(17),
+    height: widthRes(17),
+    marginTop: heightRes(-6)
+  },
+  section: {
+    marginVertical: heightRes(2),
+    marginLeft: heightRes(1)
+  },
+  brandText: { marginTop: heightRes(0.8) },
+  vehicleContainer: {
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: heightRes(0.5),
+    paddingHorizontal: heightRes(2),
+    borderColor: colors.textColor
+  },
+  button: {
+    width: "45%",
+    borderRadius: 10
+  },
+  bottomContainer: [
+    appStyle.flexRowSpaceCenter,
+    {
+      padding: heightRes(4),
+      position: "absolute",
+      bottom: 0,
+      backgroundColor: colors.variant,
+      borderTopRightRadius: 20,
+      borderTopLeftRadius: 20,
+      width: '100%',
+      borderTopWidth: 1,
+      borderColor: colors.appBlack
+    }
+  ]
 });

@@ -10,6 +10,7 @@ import ChatScreen from "../screens/chat/chatScreen";
 import OrderScreen from "../screens/maps/orderScreen";
 import OrderHistory from "../screens/profile/orderHistory";
 import EditProfile from "../screens/profile/editProfile";
+import MechanicsReviews from "../screens/reviews/mechanicsReviews";
 
 const DrawerStack = () => {
   const Drawer = createDrawerNavigator();
@@ -31,6 +32,7 @@ const DrawerStack = () => {
       <Drawer.Screen name="ChatScreen" component={ChatScreen} />
       <Drawer.Screen name="OrderScreen" component={OrderScreen} />
       <Drawer.Screen name="OrderHistory" component={OrderHistory} />
+      <Drawer.Screen name="MechanicsReviews" component={MechanicsReviews} />
     </Drawer.Navigator>
   );
 };
